@@ -1,9 +1,9 @@
 from services.messageService import messageService, message
 
-class cinService(messageService):
+class publicationService(messageService):
     def __init__(self):
         super().__init__()
 
-class cinMessage(message):
+class publicationMessage(message):
     def __init__(self):
         super().__init__()
