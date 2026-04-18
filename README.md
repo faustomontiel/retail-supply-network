@@ -1,2 +1,3 @@
 # retail-supply-network
-<img width="1205" height="634" alt="retail-supply-network" src="https://github.com/user-attachments/assets/a6440e08-bbe8-40ad-819f-da8c4e496972" />
+<img width="1560" height="626" alt="retail-supply-network(1)" src="https://github.com/user-attachments/assets/fce74cdc-5672-4c87-b8d0-561692fa028d" />
+
