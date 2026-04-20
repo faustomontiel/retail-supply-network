@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String, Float, DateTime
 from sqlalchemy.sql import func
-from config.database import Base
+from src.config.database import Base
 
 class Registry(Base):
     __tablename__ = "registrymessages"

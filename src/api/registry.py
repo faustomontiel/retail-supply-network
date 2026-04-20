@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
-from services.registryService import registryService
-from config.database import SessionLocal
+from src.services.registryService import registryService
+from src.config.database import SessionLocal
 
 registry_bp = Blueprint('registry', __name__, url_prefix='/registry')
 

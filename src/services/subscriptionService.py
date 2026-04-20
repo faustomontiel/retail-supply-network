@@ -1,4 +1,4 @@
-from services.messageService import messageService, message
+from src.services.messageService import messageService, message
 
 class subscriptionService(messageService):
     def __init__(self):

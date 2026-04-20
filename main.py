@@ -1,8 +1,8 @@
 from flask import Flask
-from config.config import DATABASE_URL
-from config.database import engine, Base
-from models.registry import Registry
-from api.registry import registry_bp
+from src.config.config import DATABASE_URL
+from src.config.database import engine, Base
+from src.models.registry import Registry
+from src.api.registry import registry_bp
 
 app = Flask(__name__)
 

@@ -1,4 +1,4 @@
-from utils.logs import logs
+from src.utils.logs import logs
 
 class messageService:
     def __init__(self):

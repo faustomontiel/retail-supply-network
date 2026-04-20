@@ -1,6 +1,6 @@
-from services.messageService import messageService, message
+from src.services.messageService import messageService, message
 from sqlalchemy.orm import Session
-from models.registry import Registry
+from src.models.registry import Registry
 
 class registryService(messageService):
     def __init__(self, db: Session):
