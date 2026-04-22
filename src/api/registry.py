@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from src.services.registryService import registryService
+from src.services.registryService import RegistryService
 from src.config.database import SessionLocal
 
 registry_bp = Blueprint('registry', __name__, url_prefix='/registry')
@@ -9,7 +9,7 @@ def create_registry():
     data = request.get_json()
     db = SessionLocal()
 
-    service = registryService(db)
+    service = RegistryService(db)
     registry = service.registryMessage(
         gtin=data['gtin'],
         name=data['name'],

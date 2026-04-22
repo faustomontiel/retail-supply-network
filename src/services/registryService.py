@@ -2,11 +2,11 @@ from src.services.messageService import messageService, message
 from sqlalchemy.orm import Session
 from src.models.registry import Registry
 
-class registryService(messageService):
+class RegistryService(messageService):
     def __init__(self, db: Session):
+        super().__init__()
         self._registered = None
         self._db = db
-        super().__init__()
 
     def registryMessage(self, gtin: str, name: str, description: str):
         registry = Registry(gtin=gtin, name=name, description=description)
@@ -15,6 +15,6 @@ class registryService(messageService):
         self._db.refresh(registry)
         return registry        
 
-class registryMessage(message):
+class RegistryMessage(message):
     def __init__(self):
         super().__init__()
