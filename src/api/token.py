@@ -1,9 +1,9 @@
 from flask import Blueprint, request, jsonify
 from src.utils.security import Security
 
-security_bp = Blueprint('security', __name__, url_prefix='/auth')
+security_bp = Blueprint('security', __name__, url_prefix='/api/token')
 
-@security_bp.route('/token', methods=['POST'])
+@security_bp.route('/', methods=['POST'])
 def generate_token():
     data = request.get_json()
     security = Security() 

@@ -2,9 +2,9 @@ from flask import Blueprint, request, jsonify
 from src.services.registryService import RegistryService
 from src.config.database import SessionLocal
 
-registry_bp = Blueprint('registry', __name__, url_prefix='/registry')
+registry_bp = Blueprint('registry', __name__, url_prefix='/api/registry')
 
-@registry_bp.route('/create', methods=['POST'])
+@registry_bp.route('/', methods=['POST'])
 def create_registry():
     data = request.get_json()
     db = SessionLocal()
