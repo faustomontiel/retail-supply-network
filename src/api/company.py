@@ -16,4 +16,8 @@ def create_company():
     )
 
     db.close()
-    return jsonify({'id': company.id, 'password': company.password}), 201
+
+    if company.get('exist'):
+        return jsonify(company), 409
+    
+    return jsonify(company), 201

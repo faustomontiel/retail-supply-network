@@ -9,13 +9,27 @@ class CompanyService(messageService):
         self._db = db
         
     def createCompany(self, gln: str, name: str):
-        password = secrets.token_urlsafe(12)
+        try:
+            if len(gln) < 10:
+                return {'error':'GLN must be at least 10 characters.','errorValidaror':True}
 
-        company = Company(gln=gln, name=name, password=password)
-        self._db.add(company)
-        self._db.commit()
-        self._db.refresh(company)
-        return company        
+            if self.company_exist(gln):
+                return {'error':'Company alredy registered in RSP.','exist':True}
+            
+            password = secrets.token_urlsafe(12)
+            company = Company(gln=gln, name=name, password=password)
+            self._db.add(company)
+            self._db.commit()
+            self._db.refresh(company)
+
+            return {'success':True, 'company_id': company.id, 'password': company.password}
+        except Exception as e:
+            self._db.rollback()
+            return {'error': str(e)}
+    
+    def company_exist(self, gln):
+        company = self._db.query(Company).filter(Company.gln == gln).first()
+        return company is not None
 
 class CompanyMessage(message):
     def __init__(self):
