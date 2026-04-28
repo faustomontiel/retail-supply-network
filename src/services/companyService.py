@@ -1,6 +1,7 @@
 from src.services.messageService import messageService, message
 from sqlalchemy.orm import Session
 from src.models.company import Company
+from src.services.hashService import HashService
 import secrets
 
 class CompanyService(messageService):
@@ -17,19 +18,27 @@ class CompanyService(messageService):
                 return {'error':'Company alredy registered in RSP.','exist':True}
             
             password = secrets.token_urlsafe(12)
-            company = Company(gln=gln, name=name, password=password)
+            hashed_password = HashService.hash_password(password)
+
+            company = Company(gln=gln, name=name, password=hashed_password)
             self._db.add(company)
             self._db.commit()
             self._db.refresh(company)
 
-            return {'success':True, 'company_id': company.id, 'password': company.password}
+            return {'success':True, 'company_id': company.id, 'password': password}
         except Exception as e:
             self._db.rollback()
             return {'error': str(e)}
     
-    def company_exist(self, gln):
+    def company_exist(self, gln: str):
         company = self._db.query(Company).filter(Company.gln == gln).first()
         return company is not None
+    
+    def get_company_password(self, gln: str):
+        company = self._db.query(Company).filter(Company.gln == gln).first()
+        if company:
+            return company.password
+        return None
 
 class CompanyMessage(message):
     def __init__(self):
