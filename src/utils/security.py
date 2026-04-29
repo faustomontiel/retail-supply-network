@@ -26,7 +26,7 @@ class Security():
         payload = {
             'gln': gln,
             'iat': int(now.timestamp()),
-            'exp': int((now + timedelta(minutes=5)).timestamp())
+            'exp': int((now + timedelta(minutes=120)).timestamp())
         }
         return jwt.encode(payload, JWT_KEY, algorithm="HS256")
 

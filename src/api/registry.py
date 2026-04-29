@@ -12,15 +12,23 @@ def create_registry():
         
     if payload is not None:
         db = SessionLocal()
+        
+        gln = payload.get('gln')
+
 
         service = RegistryService(db)
         registry = service.registryMessage(
+            gln=gln,
             gtin=data['gtin'],
             name=data['name'],
             description=data['description']
         )
 
         db.close()
-        return jsonify({'id': registry.id, 'gtin': registry.gtin}), 201
+        
+        if registry.get('error'):
+            return jsonify(registry), 400
+        
+        return jsonify({'id': registry['id'], 'gtin': registry['gtin']}), 201
     else:
         return jsonify({'Message':'Unauthorized'}), 401
