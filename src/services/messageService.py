@@ -1,8 +1,8 @@
-from src.utils.logs import logs
+from src.utils.logs import Logs
 
 class messageService:
     def __init__(self):
-        self._logs = logs("messageService.log")
+        self._logs = Logs("messageService.log")
     
     def testLog(self):
         self._logs.doLog("Testeando...")
