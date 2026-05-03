@@ -35,3 +35,14 @@ class Logs:
 
         with open(dest, 'a') as file:
             file.write(log_message + '\n') 
+
+class Error:
+    
+    def __init__(self):
+        from src.utils.logs import Logs
+        self._logs = Logs()
+
+    def _errorReturn(self, message, **kwargs):
+        result = {'error': message, **kwargs}
+        self._logs.doLog(result)
+        return result

@@ -2,7 +2,7 @@ from src.services.messageService import messageService, message
 from sqlalchemy.orm import Session
 from src.models.company import Company
 from src.services.hashService import HashService
-from src.utils.logs import Logs
+from src.utils.logs import Logs, Error
 import secrets
 
 class CompanyService(messageService):
@@ -10,16 +10,17 @@ class CompanyService(messageService):
         super().__init__()
         self._db = db
         self._logs = Logs()
+        self._error = Error()
 
     def createCompany(self, gln: str, name: str):
         try:
             self._logs.doLog(f"Start create company")
             
             if len(gln) < 10:
-                return {'error':'GLN must be at least 10 characters.','errorValidaror':True}
+                return self._error._errorReturn('GLN must be at least 10 characters.',errorValidaror=True)
 
             if self.company_exist(gln):
-                return {'error':'Company alredy registered in RSP.','exist':True}
+                return self._error._errorReturn('Company alredy registered in RSP.',exist=True)
             
             self._logs.doLog(f"Company validations OK.")
 

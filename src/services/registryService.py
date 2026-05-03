@@ -2,7 +2,7 @@ from src.services.messageService import messageService, message
 from src.services.companyService import CompanyService
 from sqlalchemy.orm import Session
 from src.models.registry import Registry
-from src.utils.logs import Logs
+from src.utils.logs import Logs, Error
 import time
 
 class RegistryService(messageService):
@@ -11,6 +11,7 @@ class RegistryService(messageService):
         self._registered = None
         self._db = db
         self._logs = Logs()
+        self._error = Error()
 
     def registryMessage(self, gln: str, gtin: str, name: str, description: str):
         try:
@@ -19,15 +20,15 @@ class RegistryService(messageService):
             company_service = CompanyService(self._db)
             
             if not company_service.company_exist(gln):
-                return {'error': 'Company not registered in RSP.'}
+                return self._error._errorReturn('Company not registered in RSP.')
 
             self._logs.doLog(f"Company {gln} exist.")
 
             if len(gtin) < 8:
-                return {'error': 'GTIN must be at least 8 characters.','errorValidaror':True}
+                return self._error._errorReturn('GTIN must be at least 8 characters.',errorValidaror=True)
 
             if self.registry_exists(gtin):
-                return {'error': 'GTIN already registered in RSP.'}
+                return self._error._errorReturn('GTIN already registered in RSP.')
 
             self._logs.doLog(f"Registry validations OK.")
 
