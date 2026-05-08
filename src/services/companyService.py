@@ -12,12 +12,16 @@ class CompanyService(messageService):
         self._logs = Logs()
         self._error = Error()
 
-    def createCompany(self, gln: str, name: str):
+    def createCompany(self, gln: str, name: str, type: str):
         try:
             self._logs.doLog(f"Start create company")
             
             if len(gln) < 10:
                 return self._error._errorReturn('GLN must be at least 10 characters.',errorValidaror=True)
+
+            if type not in ('PUB','SUS'):
+                return self._error._errorReturn('Type must be PUB (publications supplier) or SUS (subscriber).',errorValidaror=True)
+
 
             if self.company_exist(gln):
                 return self._error._errorReturn('Company alredy registered in RSP.',exist=True)
@@ -27,7 +31,7 @@ class CompanyService(messageService):
             password = secrets.token_urlsafe(12)
             hashed_password = HashService.hash_password(password)
 
-            company = Company(gln=gln, name=name, password=hashed_password)
+            company = Company(gln=gln, name=name, password=hashed_password, type=type)
             self._db.add(company)
             self._db.commit()
             self._db.refresh(company)

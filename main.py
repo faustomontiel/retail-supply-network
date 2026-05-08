@@ -13,7 +13,7 @@ app.url_map.strict_slashes = False
 app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-Base.metadata.create_all(bind=engine)
+#Base.metadata.create_all(bind=engine)
 
 app.register_blueprint(registry_bp)
 

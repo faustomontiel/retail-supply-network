@@ -6,6 +6,7 @@ class Registry(Base):
     __tablename__ = "registrymessages"
 
     id = Column(Integer, primary_key=True, index=True)
+    gln = Column(String, index=True)
     gtin = Column(String, index=True)
     name = Column(String, index=True)
     description = Column(String, index=True)
