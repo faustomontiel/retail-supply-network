@@ -2,7 +2,6 @@ from flask import Blueprint, request, jsonify
 from src.services.companyService import CompanyService
 from src.config.database import SessionLocal
 from src.config.config import SUPER_USER_KEY
-from src.utils.security import Security
 
 company_bp = Blueprint('company', __name__, url_prefix='/api/company')
 

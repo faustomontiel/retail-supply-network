@@ -1,11 +1,9 @@
 from flask import Flask
 from src.config.config import DATABASE_URL
-from src.config.database import engine, Base
-from src.models.registry import Registry
-from src.models.company import Company
 from src.api.registry import registry_bp
 from src.api.token import security_bp
 from src.api.company import company_bp
+from src.api.subscription import subscription_bp
 app = Flask(__name__)
 
 app.url_map.strict_slashes = False
@@ -20,6 +18,8 @@ app.register_blueprint(registry_bp)
 app.register_blueprint(security_bp)
 
 app.register_blueprint(company_bp)
+
+app.register_blueprint(subscription_bp)
 
 
 @app.route('/')

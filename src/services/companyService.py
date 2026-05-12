@@ -54,6 +54,10 @@ class CompanyService(messageService):
             return company.password
         return None
 
+    def is_subscriber(self, gln: str):
+        company = self._db.query(Company).filter(Company.gln == gln).first()
+        return company is not None and company.type == 'SUS'
+
 class CompanyMessage(message):
     def __init__(self):
         super().__init__()
