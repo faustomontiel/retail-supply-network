@@ -43,6 +43,6 @@ class Error:
         self._logs = Logs()
 
     def _errorReturn(self, message, **kwargs):
-        result = {'error': message, **kwargs}
+        result = {'Error': message, **kwargs}
         self._logs.doLog(result)
         return result

@@ -58,6 +58,11 @@ class CompanyService(messageService):
         company = self._db.query(Company).filter(Company.gln == gln).first()
         return company is not None and company.type == 'SUS'
 
+    def is_supplier(self, gln: str):
+        company = self._db.query(Company).filter(Company.gln == gln).first()
+        return company is not None and company.type == 'PUB'
+
+
 class CompanyMessage(message):
     def __init__(self):
         super().__init__()

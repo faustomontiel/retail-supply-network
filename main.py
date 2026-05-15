@@ -4,6 +4,7 @@ from src.api.registry import registry_bp
 from src.api.token import security_bp
 from src.api.company import company_bp
 from src.api.subscription import subscription_bp
+from src.api.publication import publication_bp
 app = Flask(__name__)
 
 app.url_map.strict_slashes = False
@@ -20,6 +21,8 @@ app.register_blueprint(security_bp)
 app.register_blueprint(company_bp)
 
 app.register_blueprint(subscription_bp)
+
+app.register_blueprint(publication_bp)
 
 
 @app.route('/')
