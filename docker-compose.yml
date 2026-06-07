@@ -1,0 +1,15 @@
+services:
+  api:
+    build: .
+    container_name: rsn_api
+
+    ports:
+      - "5000:5000"
+
+    env_file:
+      - src/config/.env
+
+    restart: unless-stopped  
+
+    extra_hosts:
+      - "host.docker.internal:host-gateway"    
