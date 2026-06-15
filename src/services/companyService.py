@@ -1,11 +1,10 @@
-from src.services.messageService import messageService, message
 from sqlalchemy.orm import Session
 from src.models.company import Company
 from src.services.hashService import HashService
 from src.utils.logs import Logs, Error
 import secrets
 
-class CompanyService(messageService):
+class CompanyService():
     def __init__(self, db: Session):
         super().__init__()
         self._db = db
@@ -61,8 +60,3 @@ class CompanyService(messageService):
     def is_supplier(self, gln: str):
         company = self._db.query(Company).filter(Company.gln == gln).first()
         return company is not None and company.type == 'PUB'
-
-
-class CompanyMessage(message):
-    def __init__(self):
-        super().__init__()

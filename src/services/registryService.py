@@ -1,11 +1,10 @@
-from src.services.messageService import messageService, message
 from src.services.companyService import CompanyService
 from sqlalchemy.orm import Session
 from src.models.registry import Registry
 from src.utils.logs import Logs, Error
 import time
 
-class RegistryService(messageService):
+class RegistryService():
     def __init__(self, db: Session):
         super().__init__()
         self._registered = None
@@ -48,7 +47,3 @@ class RegistryService(messageService):
     def registry_exists(self, gtin: str):
         registry = self._db.query(Registry).filter(Registry.gtin == gtin).first()
         return registry is not None
-    
-class RegistryMessage(message):
-    def __init__(self):
-        super().__init__()

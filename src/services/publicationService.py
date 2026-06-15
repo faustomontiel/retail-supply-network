@@ -1,4 +1,3 @@
-from src.services.messageService import messageService, message
 from src.services.companyService import CompanyService
 from src.services.subscriptionService import SubscriptionService
 from src.models.publication import Publication
@@ -6,7 +5,7 @@ from src.utils.logs import Logs, Error
 from sqlalchemy.orm import Session
 
 
-class PublicationService(messageService):
+class PublicationService():
     def __init__(self, db: Session):
         super().__init__()
         self._db = db
@@ -53,7 +52,3 @@ class PublicationService(messageService):
             self._db.rollback()
             self._logs.doLog("ERROR in createPublication(): " + str(e))
             return {'Error': str(e)}
-
-class publicationMessage(message):
-    def __init__(self):
-        super().__init__()

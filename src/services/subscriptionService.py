@@ -1,10 +1,9 @@
-from src.services.messageService import messageService, message
 from src.services.companyService import CompanyService
 from src.models.subscription import Subscription
 from src.utils.logs import Logs, Error
 from sqlalchemy.orm import Session
 
-class SubscriptionService(messageService):
+class SubscriptionService():
     def __init__(self, db: Session):
         super().__init__()
         self._db = db
@@ -50,7 +49,3 @@ class SubscriptionService(messageService):
     def subscription_exist(self, supplier: str, subscriber: str):
         subscription = self._db.query(Subscription).filter((Subscription.supplier == supplier) & (Subscription.subscriber == subscriber)).first()
         return subscription is not None
-
-class subscriptionMessage(message):
-    def __init__(self):
-        super().__init__()
